@@ -30,7 +30,9 @@ public class Utils {
         if (count == 1){
           jsonObject = jsonObject.getJSONObject("results")
               .getJSONObject("quote");
-          batchOperations.add(buildBatchOperation(jsonObject));
+          ContentProviderOperation cpo = buildBatchOperation(jsonObject);
+          if(cpo != null)
+            batchOperations.add(cpo);
         } else{
           resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
 
@@ -76,7 +78,10 @@ public class Utils {
     try {
       String change = jsonObject.getString("Change");
       builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
-      builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+      String bid = jsonObject.getString("Bid");
+      if(bid.equals("null"))
+        return null;
+      builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(bid));
       builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
           jsonObject.getString("ChangeinPercent"), true));
       builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
