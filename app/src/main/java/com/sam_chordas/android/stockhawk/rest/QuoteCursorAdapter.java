@@ -24,12 +24,16 @@ import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
  * for the code structure
  */
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder>
-    implements ItemTouchHelperAdapter{
+    implements ItemTouchHelperAdapter {
+
+  public interface OnQuoteClickListener {
+    public void onQuoteClicked();
+  }
 
   private static Context mContext;
   private static Typeface robotoLight;
   private boolean isPercent;
-  public QuoteCursorAdapter(Context context, Cursor cursor){
+  public <T extends Context & OnQuoteClickListener> QuoteCursorAdapter(T context, Cursor cursor){
     super(context, cursor);
     mContext = context;
   }
@@ -109,7 +113,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
     @Override
     public void onClick(View v) {
-
+      ((OnQuoteClickListener) mContext).onQuoteClicked();
     }
   }
 }

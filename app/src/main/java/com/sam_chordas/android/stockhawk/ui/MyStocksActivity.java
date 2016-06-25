@@ -35,7 +35,8 @@ import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
 
-public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MyStocksActivity extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor>, QuoteCursorAdapter.OnQuoteClickListener {
 
   /**
    * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -223,4 +224,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     mCursorAdapter.swapCursor(null);
   }
 
+  @Override
+  public void onQuoteClicked() {
+    Intent launchIntent = new Intent(this, StockDetailActivity.class);
+    startActivity(launchIntent);
+  }
 }
