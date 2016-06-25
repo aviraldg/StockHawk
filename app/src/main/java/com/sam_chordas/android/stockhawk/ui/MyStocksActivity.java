@@ -225,8 +225,7 @@ public class MyStocksActivity extends AppCompatActivity
   }
 
   @Override
-  public void onQuoteClicked() {
-    Intent launchIntent = new Intent(this, StockDetailActivity.class);
-    startActivity(launchIntent);
+  public void onQuoteClicked(String symbol) {
+    startActivity(StockDetailActivity.getIntent(this, symbol));
   }
 }

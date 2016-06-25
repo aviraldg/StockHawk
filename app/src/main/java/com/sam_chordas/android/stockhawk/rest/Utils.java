@@ -9,6 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * Created by sam_chordas on 10/8/15.
  */
@@ -96,5 +99,13 @@ public class Utils {
       e.printStackTrace();
     }
     return builder.build();
+  }
+
+  public static YQLService getYQLService() {
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://query.yahooapis.com/v1/public/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    return retrofit.create(YQLService.class);
   }
 }

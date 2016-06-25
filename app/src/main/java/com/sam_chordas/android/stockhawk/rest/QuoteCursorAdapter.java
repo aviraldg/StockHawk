@@ -27,7 +27,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     implements ItemTouchHelperAdapter {
 
   public interface OnQuoteClickListener {
-    public void onQuoteClicked();
+    void onQuoteClicked(String symbol);
   }
 
   private static Context mContext;
@@ -95,6 +95,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     public final TextView change;
     public ViewHolder(View itemView){
       super(itemView);
+      itemView.setOnClickListener(this);
       symbol = (TextView) itemView.findViewById(R.id.stock_symbol);
       symbol.setTypeface(robotoLight);
       bidPrice = (TextView) itemView.findViewById(R.id.bid_price);
@@ -113,7 +114,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
     @Override
     public void onClick(View v) {
-      ((OnQuoteClickListener) mContext).onQuoteClicked();
+      ((OnQuoteClickListener) mContext).onQuoteClicked(symbol.getText().toString());
     }
   }
 }
