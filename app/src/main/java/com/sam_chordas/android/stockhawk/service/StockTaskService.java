@@ -1,5 +1,7 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
@@ -10,9 +12,11 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.Utils;
+import com.sam_chordas.android.stockhawk.ui.StocksAppWidgetProvider;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -130,6 +134,9 @@ public class StockTaskService extends GcmTaskService{
         e.printStackTrace();
       }
     }
+
+    int ids [] = AppWidgetManager.getInstance(mContext).getAppWidgetIds(new ComponentName(mContext, StocksAppWidgetProvider.class));
+    AppWidgetManager.getInstance(mContext).notifyAppWidgetViewDataChanged(ids, R.id.listview);
 
     return result;
   }

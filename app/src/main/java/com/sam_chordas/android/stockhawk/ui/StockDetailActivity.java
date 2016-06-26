@@ -41,7 +41,7 @@ public class StockDetailActivity extends Activity {
     private LineChartView lineChartView;
     private String symbol;
 
-    static Intent getIntent(Context context, String symbol) {
+    public static Intent getIntent(Context context, String symbol) {
         Intent i = new Intent(context, StockDetailActivity.class);
         i.putExtra(SYMBOL, symbol);
         return i;
